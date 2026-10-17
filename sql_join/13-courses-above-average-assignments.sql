@@ -1,1 +1,1 @@
-SELECT courses.title AS course_title FROM courses LEFT JOIN assignments ON courses.id = assignments.course_id GROUP BY courses.id HAVING COUNT(assignments.id) > (SELECT COUNT(*) FROM assignments) * 1.0 / (SELECT COUNT(*) FROM courses) ORDER BY course_title ASC;
+SELECT courses.title AS course_title FROM courses INNER JOIN assignments ON courses.id = assignments.course_id GROUP BY courses.id HAVING COUNT(assignments.id) > (SELECT AVG(cnt) FROM (SELECT COUNT(*) AS cnt FROM assignments GROUP BY course_id)) ORDER BY course_title ASC;
